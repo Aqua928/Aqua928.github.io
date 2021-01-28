@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="北京邮电大学网络空间安全专业软件安全课基本概念总结，用于期末准备简答题用（最后只命中了一条QAQ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件安全重点">
+<meta property="og:url" content="http://example.com/2021/01/28/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E9%87%8D%E7%82%B9/index.html">
+<meta property="og:site_name" content="Aqua的小屋">
+<meta property="og:description" content="北京邮电大学网络空间安全专业软件安全课基本概念总结，用于期末准备简答题用（最后只命中了一条QAQ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/images/note/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/1609340258808.png">
+<meta property="article:published_time" content="2021-01-28T03:00:23.000Z">
+<meta property="article:modified_time" content="2021-01-28T07:14:38.225Z">
+<meta property="article:author" content="Aqua">
+<meta property="article:tag" content="大三上期末">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/images/note/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/1609340258808.png">
+
+<link rel="canonical" href="http://example.com/2021/01/28/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E9%87%8D%E7%82%B9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>软件安全重点 | Aqua的小屋</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Aqua的小屋</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/28/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E9%87%8D%E7%82%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/photo.jpg">
+      <meta itemprop="name" content="Aqua">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Aqua的小屋">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软件安全重点
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-01-28 11:00:23 / 修改时间：15:14:38" itemprop="dateCreated datePublished" datetime="2021-01-28T11:00:23+08:00">2021-01-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%BE%E5%86%85%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课内笔记</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">北京邮电大学网络空间安全专业软件安全课基本概念总结，用于期末准备简答题用（最后只命中了一条QAQ</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="软件安全概念"><a href="#软件安全概念" class="headerlink" title="软件安全概念"></a>软件安全概念</h1><h3 id="字符串安全"><a href="#字符串安全" class="headerlink" title="字符串安全"></a>字符串安全</h3><ul>
+<li><p><strong>缓冲区溢出</strong>：当向为某特定数据结构分配的内存空间边界之外写入数据时， 就会发生缓冲区溢出。</p>
+</li>
+<li><p><strong>常见的字符串操作错误：</strong></p>
+<ol>
+<li><p>无界字符串复制</p>
+</li>
+<li><p>空结尾错误</p>
+</li>
+<li><p>截断</p>
+</li>
+<li><p>差一错误</p>
+</li>
+<li><p>数组写入越界</p>
+</li>
+<li><p>不恰当的数据处理</p>
+</li>
+</ol>
+</li>
+<li><p><strong>程序栈中存储的内容包括：</strong>调用函数的返回地址；函数参数；局部 (临时）变量</p>
+</li>
+<li><p><strong>下列情况栈被修改</strong>：在函数调用期间；函数初始化期间；从子例程返回时</p>
+</li>
+<li><p><strong>栈粉碎</strong>：当缓冲区溢出覆写分配给执行栈内存中的数据时，就会导致栈粉碎</p>
+</li>
+<li><p><strong>恶意参数的特征</strong>：必须被漏洞程序作为合法输入接受；参数,以及其他可控输入必定导致了漏洞代码路径的执行；在控制权转移到恶意代码之前，参数不能导致程序非正常终止。</p>
+</li>
+<li><p><strong>弧注入</strong>：弧注入将控制转移到已经存在于程序内存空间中的代码中。弧注入的利用方式是在程序的控制流“团”中插入一段新的“弧’（表示控制流转移），而不是进行代码注入。</p>
+</li>
+<li><p><strong>动态分配缓冲区的缺点</strong>：如果输入被限制，则可能耗尽机器内存，结果导致拒绝服务攻击。</p>
+</li>
+</ul>
+<h3 id="指针安全"><a href="#指针安全" class="headerlink" title="指针安全"></a>指针安全</h3><ul>
+<li><p><strong>缓冲区溢出覆写指针的条件</strong>：</p>
+<ol>
+<li><p>缓冲区与目标指针必须分配在同一个段内</p>
+</li>
+<li><p>对于由上界控制的循环，缓冲区必须位于比目标指针更低的内存地址处</p>
+</li>
+<li><p>该缓冲区必须是界限不充分的，因此容易被缓冲区溢出利用</p>
+</li>
+</ol>
+</li>
+<li><p><strong>data段</strong>： 包含了所有已初始化的全局变量和常数</p>
+<p><strong>bss段</strong>：   包含了所有未初始化的全局变量  </p>
+</li>
+<li><p><strong>全局偏移表GOT</strong>：被包含在ELF的二进制文件的进程空间里，存放绝对地址，使得动态链接的进程能够工作。在ELF可执行文件中的GOT入口项的地址是固定的。</p>
+</li>
+<li><p><strong>虚函数</strong>：虚函数使用virtual关键字声明的类成员函数，可以由派生类的同名函数重写，函数调用在运行时解析。</p>
+</li>
+<li><p><strong>Windows提供了三种形式的异常处理程序：</strong></p>
+<ol>
+<li>向量化异常处理 Vectored Exception Handling (VEH)：nVEH首先调用以重写SEH</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li>结构化异常处理 Structured Exception Handling (SEH)，被实现为每函数或每线程的异常处理程序，即每一个函数或每一个线程都有自己的异常处理程序。</li>
+<li>系统默认异常处理 System Default Exception Handling：是一个全局异常过滤器和处理器，用于处理整个进程的异常情况。</li>
+</ol>
+<h3 id="动态内存管理"><a href="#动态内存管理" class="headerlink" title="动态内存管理"></a>动态内存管理</h3><ul>
+<li><p><strong>常见的内存管理错误</strong>:</p>
+<ol>
+<li><p>初始化错误 </p>
+</li>
+<li><p>未检查返回值 </p>
+</li>
+<li><p>引用已释放内存</p>
+</li>
+<li><p>对同一块内存释放多次 </p>
+</li>
+<li><p>不正确配对的内存管理函数</p>
+</li>
+<li><p>未能区分标量和数组</p>
+</li>
+<li><p>分配函数使用不当</p>
+</li>
+</ol>
+</li>
+<li><p><strong>筐</strong>:空闲块被组织成环形双链表称为筐,  每个筐容纳有特定大小或一定大小范围的空闲块,  还有一个包含最近释放的块的筐作为缓存</p>
+</li>
+<li><p><strong>unlink代码片段(内存块被分配/被合并)：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(P, BK, FD) &#123;	\</span></span><br><span class="line">	FD = P-&gt;fd;	\ </span><br><span class="line">	BK = P-&gt;bk;	\ </span><br><span class="line">	FD-&gt;bk = BK;	\ </span><br><span class="line">	BK-&gt;fd = FD;	\ </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p><strong>frontlink代码片段(内存块被释放)：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BK = bin;</span><br><span class="line">FD = BK-&gt;fd;</span><br><span class="line"><span class="keyword">if</span> (FD != BK) &#123;</span><br><span class="line">       <span class="keyword">while</span> (FD != BK &amp;&amp; S &lt; chunksize(FD)) &#123;</span><br><span class="line">           FD = FD-&gt;fd;</span><br><span class="line">     &#125;</span><br><span class="line">     BK = FD-&gt;bk;</span><br><span class="line">&#125;</span><br><span class="line">P-&gt;bk = BK;</span><br><span class="line">P-&gt;fd = FD;</span><br><span class="line">FD-&gt;bk = BK-&gt;fd = P</span><br></pre></td></tr></table></figure></li>
+<li><p>**成功地利用双重释放漏洞，有两个条件必须满足 **:</p>
+<p>被释放的内存块必须在内存中独立存在</p>
+<p>该内存所被放入的筐（bin）必须为空</p>
+</li>
+<li><p><strong>空闲链表</strong>: 即被RTLHeap用来跟踪空闲内存块LIST_ENTRY结构的数组FreeList[]，包含128个元素，每个LIST_ENTRY元素表示一个双链表的头部，每个链表管理特定大小的空闲块。</p>
+<blockquote>
+<p>包含128个元素的数组，数组中的每个元素指向一个双链表，称之为FreeList[]，被RTLHeap用来跟踪空闲内存块。FreeList[]是一个LIST_ENTRY结构的数组，每个LIST_ENTRY表示一个双链表的头部，每个链表管理特定大小的空闲块。</p>
+</blockquote>
+</li>
+<li><p><img src="../../images/note/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5/1609340258808.png" alt="1609340258808"></p>
+</li>
+<li><p><strong>进程环境块TEB</strong>：RTLHeap数据结构的相关信息被存储在进程环境块中，维护有每一个进程的全局变量  。存放堆的最大数量、堆的实际数量、默认堆的位置、一个指向包含所有堆位置的数组的指针。</p>
+</li>
+<li><p><strong>后备缓存链表</strong>：在堆分配时创建 ，用于加速对小块内存的分配操作，会先于空闲链表被检查。</p>
+</li>
+</ul>
+<h3 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h3><ul>
+<li><p>当用以下格式字符串调用格式化输出函数时，就会触发<strong>无效指针存取或未映射的地址读取</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s%s%s%s%s%s%s%s%s%s%s%s&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>转换指示符%s显示<strong>执行栈上相应参数所指定的地址的内存</strong>。</p>
+<blockquote>
+<p>由于在这个例子中没有提供字符串参数，因此printf()可以读取栈中任意内存位置，直到格式字符串耗尽或者遇到一个无效指针或未映射地址为止。</p>
+</blockquote>
+</li>
+<li><p><strong>栈随机化</strong>:通过向栈中插入随机的间隙实现的, 使得很难预测栈上信息的位置，包括返回地址和自动变量的位置.</p>
+</li>
+</ul>
+<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><ul>
+<li><p><strong>并发</strong>：一种系统属性，是指系统中几个计算同时执行，并可能彼此交互。  </p>
+</li>
+<li><p><strong>并行与并发</strong>：并发和并行不等价，所有的并行程序都是并发的，但不是所有的并发程序都是并行的。这意味着并发程序既可以用交错、时间分片的方式执行又可以并行执行。  </p>
+<p>另：并行包括数据并行和任务并行 。数据并行把问题分解成数据段，且并行应用一个函数 。 任务并行性指将一个问题分解成可以共享数据的不同任务。各任务在同一时间执行，但执行不同的功能。</p>
+</li>
+<li><p><strong>并行度</strong>：表示工作(所有指令花费的总时间)跨度(执行最长的并行执行路径或关键路径所花费的时间)比。  </p>
+</li>
+<li><p><strong>竞争条件</strong>：在任何情况下，取决于哪个线程首先完成，只要两个线程可以产生不同的行为，都会产生竞争条件。</p>
+<blockquote>
+<p>竞争条件指多个线程或者进程在读写一个共享数据时结果依赖于它们执行的相对时间的情形。</p>
+<p>只有当两个或多个线程共享数据而且至少一个线程试图对数据进行修改时，才可能有竞争条件。   </p>
+</blockquote>
+</li>
+<li><p><strong>竞争条件存在的三个属性</strong>：</p>
+<ol>
+<li>并发属性：至少有两个必须同时执行的控制流。</li>
+<li>共享对象属性：两个并发流都必须访问一个共享的竞争对象。</li>
+<li>改变状态属性：至少有一个控制流一定会改变竞争对象的状态。  </li>
+</ol>
+</li>
+<li><p>同步：</p>
+</li>
+<li><p><strong>并发代码属性</strong>：</p>
+<ol>
+<li><strong>线程安全：一个线程安全函数通过锁或其他互斥机制来防止共享资源被并发访问。</strong>因此，一个线程安全的函数可以同时被多个线程调用，而不用担心。</li>
+<li><strong>可重入：指相同函数的多个实例可以同时运行在相同的地址空间中，而不会创建潜在的不一致的状态。</strong> 在连续调用时不持有静态数据，也不会返回一个指向静态数据的指针。因此，可重入函数使用的所有数据都由调用者提供，并且可重入函数不能调用不可重入函数。  </li>
+<li>线程安全与可重入：<strong>可重入函数一定也是线程安全的，但线程安全的函数却可能无法重入</strong>。  </li>
+</ol>
+</li>
+<li><p><strong>死锁</strong>：当两个或多个控制流以彼此都不可以继续执行的方式阻止对方时，就会发生死锁。特别是，对于一个并发执行流的循环，如果其中在循环中的每个流都已经获得了导致在循环中随后的流悬停的同步对象，则会发生死锁。</p>
+<p><strong>总结※：锁定顺序不当或不释放锁</strong></p>
+</li>
+</ul>
+<h3 id="文件输入输出"><a href="#文件输入输出" class="headerlink" title="文件输入输出"></a>文件输入输出</h3><ul>
+<li><p><strong>实际用户ID</strong>：RUID是启动该进程的用户的ID，它与父进程的用户ID是相同的，除非它被改变 。</p>
+</li>
+<li><p><strong>有效用户ID</strong>：EUID是由内核检查权限时，使用的实际ID，因此它确定了进程的权限。  </p>
+<blockquote>
+<p>如果新的进程映像文件的 设置用户ID模式位 被设置，则新进程映像的EUID被设置为新进程映像文件的用户ID。</p>
+</blockquote>
+</li>
+<li><p> 保存的设置用户ID：是执行时设置用户ID程序的进程映像文件的所有者ID 。  </p>
+</li>
+<li><p><strong>符号链接文件</strong>：创建符号链接实际上创建了一个具有独特的i-节点(i-node)的新文件。符号链接是包含了实际文件的路径名的特殊文件。</p>
+<blockquote>
+<p> 符号链接是一个实际的文件，但此文件仅包含一个到另一个文件的引用，该引用存储为用文本表示的路径。符号链接(symbolic link)是一个方便的解决文件共享的方案</p>
+</blockquote>
+</li>
+<li><p><strong>空闲内存列表</strong>：</p>
+</li>
+<li><p><strong>整数回绕</strong>：</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>忍不住打赏=͟͟͞͞(•̀ω•́ ‧̣̥̇)</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Aqua 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E4%B8%89%E4%B8%8A%E6%9C%9F%E6%9C%AB/" rel="tag"># 大三上期末</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/28/Java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="Java学习笔记">
+      Java学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">软件安全概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AE%89%E5%85%A8"><span class="nav-number">1.0.1.</span> <span class="nav-text">字符串安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88%E5%AE%89%E5%85%A8"><span class="nav-number">1.0.2.</span> <span class="nav-text">指针安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.0.3.</span> <span class="nav-text">动态内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="nav-number">1.0.4.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">1.0.5.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="nav-number">1.0.6.</span> <span class="nav-text">文件输入输出</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Aqua"
+      src="/images/photo.jpg">
+  <p class="site-author-name" itemprop="name">Aqua</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Aqua928" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Aqua928" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:gsk@bupt.edu.cn" title="E-Mail → mailto:gsk@bupt.edu.cn" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://blog.arklight.xyz/" title="http:&#x2F;&#x2F;blog.arklight.xyz" rel="noopener" target="_blank">Arklight</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Aqua</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script color='' opacity='' zIndex='' count='' src="/lib/canvas-nest/canvas-nest-nomobile.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
